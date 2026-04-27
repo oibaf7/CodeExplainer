@@ -1,6 +1,7 @@
-package com.codeexplainer;
+package com.codeexplainer.ui;
 
 
+import com.codeexplainer.core.OllamaClient;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.components.JBScrollPane;
 

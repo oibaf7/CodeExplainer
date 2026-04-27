@@ -2,6 +2,7 @@ package com.codeexplainer;
 
 
 
+import com.codeexplainer.core.OllamaClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

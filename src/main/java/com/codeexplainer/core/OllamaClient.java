@@ -1,4 +1,4 @@
-package com.codeexplainer;
+package com.codeexplainer.core;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -8,10 +8,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class OllamaClient {
 
-    //to make configurable
-    //model and endpoint
-    public static final String MODEL = "qwen2.5-coder:7b";
-    public static final String ENDPOINT = "http://localhost:11434/api/generate";
+    public String model = "qwen2.5-coder:7b";
+    public String endpoint = "http://localhost:11434/api/generate";
     public HttpClient httpClient;
 
     public OllamaClient(HttpClient httpClient) {
@@ -20,7 +18,7 @@ public class OllamaClient {
 
     /**
      * Uses an Ollama model to explain a given code snippet to a user
-     * @param code selected by user to be explained
+     * @param code selected by the user to be explained
      * @return a CompletableFuture with the output response after having been parsed
      */
     public CompletableFuture<String> explain(String code) {
@@ -35,13 +33,23 @@ public class OllamaClient {
                 .replace("\"", "\\\"")
                 .replace("\n", "\\n");
 
-        String body = "{\"model\":\"" + MODEL + "\",\"prompt\":\"" + escapedPrompt + "\",\"stream\":false}";
+        AppSettings settings = AppSettings.getInstance();
+        if(settings.getState() != null  && settings.getState().endpoint != null)
+            this.endpoint = settings.getState().endpoint;
+        if(settings.getState() != null  && settings.getState().model != null)
+            this.model = settings.getState().model;
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(ENDPOINT))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build();
+        String body = "{\"model\":\"" + model + "\",\"prompt\":\"" + escapedPrompt + "\",\"stream\":false}";
 
+        HttpRequest request;
+        try {
+            request = HttpRequest.newBuilder().uri(URI.create(endpoint))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+        } catch(Exception e) {
+            return CompletableFuture.completedFuture("Invalid endpoint URL. Please check your settings.");
+        }
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
                 .thenApply(this::parseJson);

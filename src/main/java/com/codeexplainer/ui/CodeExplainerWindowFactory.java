@@ -1,4 +1,4 @@
-package com.codeexplainer;
+package com.codeexplainer.ui;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;

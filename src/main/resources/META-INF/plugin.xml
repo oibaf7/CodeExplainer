@@ -15,21 +15,21 @@
         <toolWindow
                 id="CodeExplainer"
                 anchor="right"
-                factoryClass="com.codeexplainer.CodeExplainerWindowFactory"/>
+                factoryClass="com.codeexplainer.ui.CodeExplainerWindowFactory"/>
+        <applicationService
+                serviceImplementation="com.codeexplainer.core.AppSettings"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.codeexplainer.ui.AppSettingsConfigurable"
+                id="com.codeexplainer.ui.AppSettingsConfigurable"
+                displayName="CodeExplainer Settings"/>
     </extensions>
     <actions>
-        <action id="com.codeexplainer.ExplainAction"
-                class="com.codeexplainer.ExplainAction"
+        <action id="com.codeexplainer.ui.ExplainAction"
+                class="com.codeexplainer.ui.ExplainAction"
                 text="Explain Code"
                 description="Explain the selected code using a local LLM">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
-<!--    <extensions defaultExtensionNs="com.intellij">-->
-<!--        <applicationConfigurable-->
-<!--                parentId="tools"-->
-<!--                instance="com.codeexplainer."-->
-<!--                id="com.example.ApplicationSettingsConfigurable"-->
-<!--                displayName="My Application Settings"/>-->
-<!--    </extensions>-->
 </idea-plugin>
