@@ -18,11 +18,15 @@ repositories {
 dependencies {
     intellijPlatform {
         create("IC", "2025.1.4.1")
-        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
-
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.JUnit5)
         // Add necessary plugin dependencies for compilation here, example:
         // bundledPlugin("com.intellij.java")
     }
+
+    testRuntimeOnly("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+    testImplementation("org.mockito:mockito-core:5.11.0")
 }
 
 intellijPlatform {
@@ -42,6 +46,10 @@ tasks {
     withType<JavaCompile> {
         sourceCompatibility = "21"
         targetCompatibility = "21"
+    }
+
+    test {
+        useJUnitPlatform()
     }
 }
 

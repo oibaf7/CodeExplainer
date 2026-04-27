@@ -1,11 +1,10 @@
-package org.example.codeexplainer;
+package com.codeexplainer;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class OllamaClient {
 
@@ -13,9 +12,18 @@ public class OllamaClient {
     //model and endpoint
     public static final String MODEL = "qwen2.5-coder:7b";
     public static final String ENDPOINT = "http://localhost:11434/api/generate";
-    public static final HttpClient httpClient = HttpClient.newHttpClient();
+    public HttpClient httpClient;
 
-    public static CompletableFuture<String> explain(String code) {
+    public OllamaClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    /**
+     * Uses an Ollama model to explain a given code snippet to a user
+     * @param code selected by user to be explained
+     * @return a CompletableFuture with the output response after having been parsed
+     */
+    public CompletableFuture<String> explain(String code) {
         String prompt = "You are a code explanation assistant. " +
                 "Explain the following code clearly and concisely. " +
                 "Describe what it does, how it works, and any important patterns or concepts used. " +
@@ -35,12 +43,18 @@ public class OllamaClient {
 
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
-                .thenApply(OllamaClient::parseJson);
+                .thenApply(this::parseJson);
     }
 
-    public static String parseJson(String json) {
+    /**
+     * Parses the response from the Ollama API response
+     * Relies on the Ollama response format
+     * @param json Ollama API response
+     * @return the actual response of the model without extra information
+     */
+    public String parseJson(String json) {
         int start = json.indexOf("\"response\":\"") + 12;
-        int end = json.indexOf("\"", start);
+        int end = json.indexOf("\",\"done\"", start);
         return json.substring(start, end);
     }
 
