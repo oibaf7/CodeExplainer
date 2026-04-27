@@ -12,9 +12,24 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-<!--        <toolWindow-->
-<!--                id="CodeExplainer"-->
-<!--                anchor="bottom"-->
-<!--                factoryClass="com.codeexplainer.CodeExplainerWindowFactory"/>-->
+        <toolWindow
+                id="CodeExplainer"
+                anchor="right"
+                factoryClass="com.codeexplainer.CodeExplainerWindowFactory"/>
     </extensions>
+    <actions>
+        <action id="com.codeexplainer.ExplainAction"
+                class="com.codeexplainer.ExplainAction"
+                text="Explain Code"
+                description="Explain the selected code using a local LLM">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+<!--    <extensions defaultExtensionNs="com.intellij">-->
+<!--        <applicationConfigurable-->
+<!--                parentId="tools"-->
+<!--                instance="com.codeexplainer."-->
+<!--                id="com.example.ApplicationSettingsConfigurable"-->
+<!--                displayName="My Application Settings"/>-->
+<!--    </extensions>-->
 </idea-plugin>

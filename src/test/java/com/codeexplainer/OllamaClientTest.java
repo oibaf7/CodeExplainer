@@ -39,4 +39,11 @@ class OllamaClientTest {
         String json = "{\"model\":\"qwen2.5-coder:7b\",\"created_at\":\"2026-04-27T13:41:53.0992959Z\",\"response\":\"Hello! How can I assist you today?\",\"done\":true,\"done_reason\":\"stop\",\"context\":[151644,8948,198,2610,525,1207,16948,11,3465,553,54364,14817,13,1446,525,264,10950,17847,13,151645,198,151644,872,198,9707,0,151645,198,151644,77091,198,9707,0,2585,646,358,7789,498,3351,30],\"total_duration\":4340022100,\"load_duration\":3988757700,\"prompt_eval_count\":31,\"prompt_eval_duration\":95791000,\"eval_count\":10,\"eval_duration\":215035100}";
         assertEquals("Hello! How can I assist you today?", ollamaClient.parseJson(json));
     }
+
+    @Test
+    void testInvalidJson() {
+        String json = "{error}";
+        assertEquals("Wrong response format! Verify the AI model is running at the right port!",
+                ollamaClient.parseJson(json));
+    }
 }

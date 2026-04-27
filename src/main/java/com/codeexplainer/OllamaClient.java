@@ -24,10 +24,11 @@ public class OllamaClient {
      * @return a CompletableFuture with the output response after having been parsed
      */
     public CompletableFuture<String> explain(String code) {
-        String prompt = "You are a code explanation assistant. " +
-                "Explain the following code clearly and concisely. " +
-                "Describe what it does, how it works, and any important patterns or concepts used. " +
-                "Be direct and technical. Refer to relevant lines. Do not repeat the code back.\n\nCode:\n" + code;
+        String prompt = "You are a code explanation assistant. Explain the following code clearly and concisely. " +
+                "Be direct and technical. Refer to relevant lines. Do not repeat the code back. " +
+                "Respond with inner HTML only using <p>, <b>, <code>, <pre>, <ul>, <li> tags. " +
+                "No markdown, no <html>/<head>/<body> tags." +
+                "Use <code> tags instead of backtick characters.\n\nCode:\n" + code;
 
         String escapedPrompt = prompt
                 .replace("\\", "\\\\")
@@ -53,9 +54,17 @@ public class OllamaClient {
      * @return the actual response of the model without extra information
      */
     public String parseJson(String json) {
+        if(!json.contains("response") || !json.contains("done")) {
+            return "Wrong response format! Verify the AI model is running at the right port!";
+        }
         int start = json.indexOf("\"response\":\"") + 12;
         int end = json.indexOf("\",\"done\"", start);
-        return json.substring(start, end);
+        return json.substring(start, end).replace("\\n", "\n")
+                .replace("\\t", "\t")
+                .replace("\\\"", "\"")
+                .replace("\\\\", "\\")
+                .replace("\\u003c", "<")
+                .replace("\\u003e", ">");
     }
 
 }
