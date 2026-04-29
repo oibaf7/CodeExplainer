@@ -58,6 +58,12 @@ public class AppSettingsComponent {
         return modelField.getText();
     }
 
+    /**
+     * Creates a component with a Label and an Icon next to it
+     * @param text to add to the label
+     * @param helpIcon to append to the Label
+     * @return a new JPanel with the label and the help Icon
+     */
     private JPanel buildLabel(String text, JLabel helpIcon) {
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         row.setOpaque(false);
@@ -67,6 +73,11 @@ public class AppSettingsComponent {
         return row;
     }
 
+    /**
+     * Builds a Help Icon that can be hovered above to show text
+     * @param text to show when the Icon is touched with the cursor
+     * @return a new JLabel that acts as an Icon
+     */
     private JLabel buildHelpIcon(String text) {
         JLabel icon = new JLabel(AllIcons.General.ContextHelp);
         icon.setToolTipText(text);
