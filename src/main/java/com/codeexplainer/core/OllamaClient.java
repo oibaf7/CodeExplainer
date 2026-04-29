@@ -34,9 +34,9 @@ public class OllamaClient {
                 .replace("\n", "\\n");
 
         AppSettings settings = AppSettings.getInstance();
-        if(settings.getState() != null  && settings.getState().endpoint != null)
+        if(settings != null && settings.getState() != null  && settings.getState().endpoint != null)
             this.endpoint = settings.getState().endpoint;
-        if(settings.getState() != null  && settings.getState().model != null)
+        if(settings != null && settings.getState() != null  && settings.getState().model != null)
             this.model = settings.getState().model;
 
         String body = "{\"model\":\"" + model + "\",\"prompt\":\"" + escapedPrompt + "\",\"stream\":false}";

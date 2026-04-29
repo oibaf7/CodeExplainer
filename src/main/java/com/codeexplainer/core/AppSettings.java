@@ -27,6 +27,7 @@ public class AppSettings implements PersistentStateComponent<AppSettings.State> 
      * @return an instance of AppSettings
      */
     public static AppSettings getInstance() {
+        if(ApplicationManager.getApplication() == null) return null;
         return ApplicationManager.getApplication()
                 .getService(AppSettings.class);
     }

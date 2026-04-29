@@ -71,7 +71,7 @@ src/main/java/com/codeexplainer/
     └── AppSettingsConfigurable.java       # Wires settings form into IDE settings
 ```
 
-`OllamaClient` sends a non-streaming POST to `/api/generate` using Java's built-in `HttpClient`. The response is parsed from Ollama's newline-delimited JSON format, extracting the `response` field from the final chunk where `done` is `true`. The result is handed back via `CompletableFuture` and rendered on the EDT.
+`OllamaClient` sends a non-streaming POST to `/api/generate` using Java's built-in `HttpClient`. The response is parsed from Ollama's newline-delimited JSON format. The result is handed back via `CompletableFuture` and rendered in the tool window.
 
 ## Configuration
 
