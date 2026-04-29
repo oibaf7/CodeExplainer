@@ -74,7 +74,7 @@ public class CodeExplainerPanel {
         String fg    = toHex(COLOR_FG);
         String bg    = toHex(COLOR_BG);
         String style = "font-family: " + UIUtil.getLabelFont().getFamily() + ", Arial, sans-serif;" +
-                "font-size: 13px;" +
+                "font-size: 11px;" +
                 "color: " + fg + ";" +
                 "background-color: " + bg + ";" +
                 "padding: 4px 2px;" +
@@ -94,7 +94,7 @@ public class CodeExplainerPanel {
         String fg    = toHex(COLOR_MUTED);
         String bg    = toHex(COLOR_BG);
         String style = "font-family: " + UIUtil.getLabelFont().getFamily() + ", Arial, sans-serif;" +
-                "font-size: 13px;" +
+                "font-size: 11px;" +
                 "color: " + fg + ";" +
                 "background-color: " + bg + ";" +
                 "padding: 4px 2px;" +
@@ -118,7 +118,7 @@ public class CodeExplainerPanel {
         String fg    = toHex(COLOR_MUTED);
         String bg    = toHex(COLOR_BG);
         String style = "font-family: " + UIUtil.getLabelFont().getFamily() + ", Arial, sans-serif;" +
-                "font-size: 13px;" +
+                "font-size: 11px;" +
                 "color: " + fg + ";" +
                 "background-color: " + bg + ";" +
                 "padding: 4px 2px;" +

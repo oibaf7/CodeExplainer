@@ -8,9 +8,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class OllamaClient {
 
-    public String model = "qwen2.5-coder:7b";
-    public String endpoint = "http://localhost:11434/api/generate";
-    public HttpClient httpClient;
+    private String model = "qwen2.5-coder:7b";
+    private String endpoint = "http://localhost:11434/api/generate";
+    private final HttpClient httpClient;
 
     public OllamaClient(HttpClient httpClient) {
         this.httpClient = httpClient;

@@ -19,8 +19,7 @@ public class ExplainAction extends AnAction {
         if (project == null) return;
         //make text area pop up when using plug-in
         ToolWindowManager.getInstance(project).getToolWindow("CodeExplainer").show();
-        Document document = editor.getDocument();
-        String code = document.getText();
+        String code = editor.getSelectionModel().getSelectedText();
         CodeExplainerPanel.instance.explain(code);
     }
 }
