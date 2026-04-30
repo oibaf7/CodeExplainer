@@ -83,5 +83,5 @@ src/main/java/com/codeexplainer/
 
 ## Known Limitations
 
-- `parseJson` targets Ollama's specific JSON format (`response` field, `done` flag) — other backends are not supported
-- HTML formatting quality depends on the model's instruction-following ability; smaller models may produce inconsistent output
+- `parseJson` targets Ollama's specific JSON format (`response` field, `done` flag) and other backends are not supported
+- HTML formatting quality depends on the model's instruction-following ability, smaller models may produce inconsistent output
