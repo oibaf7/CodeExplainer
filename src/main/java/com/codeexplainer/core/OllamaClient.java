@@ -4,12 +4,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 public class OllamaClient {
 
     private String model = "qwen2.5-coder:7b";
     private String endpoint = "http://localhost:11434/api/generate";
+    private final int TIMEOUT = 60;
     private final HttpClient httpClient;
 
     public OllamaClient(HttpClient httpClient) {
@@ -46,13 +48,15 @@ public class OllamaClient {
             request = HttpRequest.newBuilder().uri(URI.create(endpoint))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
+                    .timeout(Duration.ofSeconds(TIMEOUT))
                     .build();
         } catch(Exception e) {
             return CompletableFuture.completedFuture("Invalid endpoint URL. Please check your settings.");
         }
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
-                .thenApply(this::parseJson);
+                .thenApply(this::parseJson)
+                .exceptionally(e -> "Could not reach the Ollama endpoint. Verify it is running at: " + endpoint);
     }
 
     /**

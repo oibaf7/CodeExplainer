@@ -85,3 +85,4 @@ src/main/java/com/codeexplainer/
 
 - `parseJson` targets Ollama's specific JSON format (`response` field, `done` flag) — other backends are not supported
 - HTML formatting quality depends on the model's instruction-following ability; smaller models may produce inconsistent output
+- If no response is received within 60 seconds from the model, the request will time out and the user will be prompted to verify the endpoint it is using
